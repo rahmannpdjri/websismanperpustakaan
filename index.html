@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Manajemen Perpustakaan Modern</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .features {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        .feature-item {
+            width: 30%;
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 10px;
+            background-color: #f9f9f9;
+        }
+        .feature-item i {
+            font-size: 50px;
+            color: #007BFF;
+            margin-bottom: 10px;
+        }
+        .feature-item h3 {
+            margin-bottom: 10px;
+        }
+        .feature-item p {
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-book-reader"></i> SisMan Perpustakaan</h1>
+            <nav>
+                <a href="index.html"><i class="fas fa-home"></i> Beranda</a>
+                <a href="books.html"><i class="fas fa-book"></i> Katalog</a>
+                <a href="services.html"><i class="fas fa-cogs"></i> Layanan</a>
+                <a href="about.html"><i class="fas fa-info-circle"></i> Tentang Kami</a>
+                <a href="contact.html"><i class="fas fa-envelope"></i> Kontak</a>
+                <a href="login.html" id="logoutButton">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="container">
+                <h2>Selamat Datang di Perpustakaan Digital Kami</h2>
+                <p>Temukan ribuan buku dan sumber daya digital dalam genggaman Anda</p>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Cari buku, penulis, atau kategori..." aria-label="Cari buku">
+                    <button onclick="searchBook()" aria-label="Tombol pencarian"><i class="fas fa-search"></i></button>
+                </div>
+                <div id="searchResults"></div> <!-- Tempat untuk menampilkan hasil pencarian -->
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="feature-item">
+                <i class="fas fa-laptop"></i>
+                <h3>Akses Mudah</h3>
+                <p>Dengan platform kami, Anda dapat mengakses koleksi buku kapan saja dan di mana saja.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-book"></i>
+                <h3>Koleksi Lengkap</h3>
+                <p>Berbagai kategori buku tersedia, mulai dari fiksi hingga literatur akademik.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-users"></i>
+                <h3>Komunitas Pembaca</h3>
+                <p>Bergabunglah dengan komunitas pembaca untuk berbagi dan berdiskusi.</p>
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <div class="container">
+                <h2>Apa Kata Pengguna Kami</h2>
+                <blockquote>
+                    "Platform ini benar-benar membantu saya menemukan buku-buku yang saya butuhkan untuk belajar."
+                    <footer>- Rina, Mahasiswa</footer>
+                </blockquote>
+                <blockquote>
+                    "Sangat mudah digunakan, dan koleksinya sangat lengkap. Saya sangat merekomendasikan."
+                    <footer>- Andi, Penulis</footer>
+                </blockquote>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 SisMan Perpustakaan. Semua hak dilindungi.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Daftar buku
+        const books = [
+        { title: "Belajar JavaScript", author: "derry", description: "Panduan lengkap untuk belajar JavaScript." },
+            { title: "Matimatika", author: "ade", description: "Dasar-dasar Matematika." },
+            { title: "Sejarah Indonesia", author: "rony", description: "Belajar sejarah indonesia." },
+            { title: "Bahasa Inggris", author: "ega", description: "Memahami konsep dasar bahasa inggris." },
+            { title: "Bahasa Indonesia", author: "abi", description: "Panduan bahasa indonesia." }
+        ];
+
+        // Fungsi untuk mencari buku
+        function searchBook() {
+            const query = document.getElementById('searchInput').value.toLowerCase(); // Ambil input pencarian
+            const searchResults = document.getElementById('searchResults'); // Tempat menampilkan hasil pencarian
+
+            // Kosongkan hasil pencarian sebelumnya
+            searchResults.innerHTML = '';
+
+            // Filter buku berdasarkan judul atau penulis
+            const filteredBooks = books.filter(book => 
+                book.title.toLowerCase().includes(query) || 
+                book.author.toLowerCase().includes(query)
+            );
+
+            // Tampilkan hasil pencarian
+            if (filteredBooks.length > 0) {
+                filteredBooks.forEach(book => {
+                    const bookItem = document.createElement('div');
+                    bookItem.className = 'book-item';
+                    bookItem.innerHTML = `
+                        <h3>${book.title}</h3>
+                        <p><strong>Penulis:</strong> ${book.author}</p>
+                        <p><strong>Deskripsi:</strong> ${book.description}</p>
+                    `;
+                    searchResults.appendChild(bookItem);
+                });
+            } else {
+                searchResults.innerHTML = '<p>Tidak ada buku yang ditemukan.</p>';
+            }
+        }
+    </script>
+</body>
+</html>
